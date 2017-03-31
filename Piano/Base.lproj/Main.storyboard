@@ -13,7 +13,7 @@
         <scene sceneID="3UB-uW-4iI">
             <objects>
                 <navigationController id="6Jz-qq-60Z" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NGk-gK-x17">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NGk-gK-x17">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -37,22 +37,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZoF-DG-Va9">
-                                <rect key="frame" x="310" y="172" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYH-Xo-2GW" customClass="GIDSignInButton">
+                                <rect key="frame" x="218" y="163" width="230" height="48"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 <connections>
-                                    <segue destination="Rwj-Wi-SFI" kind="show" id="hAx-4Q-oC4"/>
+                                    <action selector="pushGoogleButon:" destination="EFX-au-b0f" eventType="touchUpInside" id="rI5-e2-imB"/>
                                 </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ZoF-DG-Va9" firstAttribute="centerX" secondItem="xQb-S3-mX9" secondAttribute="centerX" id="y7B-Cy-pwE"/>
-                            <constraint firstItem="ZoF-DG-Va9" firstAttribute="centerY" secondItem="xQb-S3-mX9" secondAttribute="centerY" id="zIe-7S-X3d"/>
+                            <constraint firstItem="HYH-Xo-2GW" firstAttribute="centerY" secondItem="xQb-S3-mX9" secondAttribute="centerY" id="a7X-Jq-EeN"/>
+                            <constraint firstItem="HYH-Xo-2GW" firstAttribute="top" secondItem="aiV-Ol-a84" secondAttribute="bottom" constant="143" id="bzG-8e-7Xb"/>
+                            <constraint firstItem="HYH-Xo-2GW" firstAttribute="centerX" secondItem="xQb-S3-mX9" secondAttribute="centerX" id="qHc-oj-Jch"/>
+                            <constraint firstItem="HYH-Xo-2GW" firstAttribute="leading" secondItem="xQb-S3-mX9" secondAttribute="leading" constant="218" id="xhK-wU-yYR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Bfn-lC-ygc"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="googleButton" destination="HYH-Xo-2GW" id="O7Q-Us-ds2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXj-9S-fRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -61,7 +67,7 @@
         <!--Piano View Controller-->
         <scene sceneID="NDl-gG-wm0">
             <objects>
-                <viewController id="Rwj-Wi-SFI" customClass="PianoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="pianoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Rwj-Wi-SFI" customClass="PianoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yim-Mc-5pg"/>
                         <viewControllerLayoutGuide type="bottom" id="LY2-bJ-GSy"/>

@@ -8,30 +8,41 @@
 
 #import "RegestrationViewController.h"
 
-@interface RegestrationViewController ()
+
+@interface RegestrationViewController () 
+
+@property(weak, nonatomic) IBOutlet GIDSignInButton *googleButton;
 
 @end
 
 @implementation RegestrationViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [GIDSignIn sharedInstance].uiDelegate = self;
+
+    if ([FIRAuth auth].currentUser) {
+        UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"pianoViewController"];
+        [self.navigationController pushViewController:VC animated:NO];
+    } else {
+        [super viewDidLoad];
+        
+//        [GIDSignIn sharedInstance].uiDelegate = self;
+//        [[GIDSignIn sharedInstance] signIn];
+//        self.googleButton.style = kGIDSignInButtonStyleStandard;
+        self.title = @"WELCOME";
+        
+    }
+    
+    
+}
+- (IBAction)pushGoogleButon:(id)sender {
+   
+
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

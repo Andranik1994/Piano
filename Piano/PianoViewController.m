@@ -23,19 +23,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationItem setHidesBackButton:YES];
+    
     UIImage* image = [UIImage imageNamed:@"profileLinkImage.png"];
     CGRect frameimg = CGRectMake(0, 0, 33 , 33);
-    UIButton *someButton = [[UIButton alloc] initWithFrame:frameimg];
+    UIButton *profileButton = [[UIButton alloc] initWithFrame:frameimg];
     
-    [someButton setBackgroundImage:image forState:UIControlStateNormal];
-    [someButton addTarget:self action:@selector(goToProfile)
+    [profileButton setBackgroundImage:image forState:UIControlStateNormal];
+    [profileButton addTarget:self action:@selector(goToProfile)
          forControlEvents:UIControlEventTouchUpInside];
-    [someButton setShowsTouchWhenHighlighted:YES];
+    [profileButton setShowsTouchWhenHighlighted:YES];
     
-    UIBarButtonItem *mailbutton =[[UIBarButtonItem alloc] initWithCustomView:someButton];
-    self.navigationItem.rightBarButtonItem=mailbutton;
-    
-    [self.navigationItem setHidesBackButton:YES];
+    UIBarButtonItem *rightBarButton =[[UIBarButtonItem alloc] initWithCustomView:profileButton];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
     
     [self createWhiteKey];
     [self createBlackKey];
@@ -43,7 +43,10 @@
 }
 
 - (void)goToProfile{
-    NSLog(@"click");
+    UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileViewController"];
+    
+    [self.navigationController pushViewController:VC animated:YES];
+    
 }
 - (void)playWhite:(WhiteNote*) noteW{
     
