@@ -13,6 +13,9 @@
 @property (nonatomic, strong) NSString *tune;
 
 - (void)playNote;
-- (void)touchUpEnd;
+
+- (void)changeColor;
+- (void)changeColorBack;
+
 
 @end

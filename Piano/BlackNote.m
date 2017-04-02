@@ -25,8 +25,12 @@
     if (self) {
         self.layer.cornerRadius = 2;
         self.backgroundColor = [UIColor blackColor];
+        
         [self addTarget:self action:@selector(playNote) forControlEvents:UIControlEventTouchDown];
-        [self addTarget:self action:@selector(touchUpEnd) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addTarget:self action:@selector(changeColorBack) forControlEvents:UIControlEventTouchUpInside];
+        [self addTarget:self action:@selector(changeColorBack) forControlEvents:UIControlEventTouchUpOutside];
+
     }
     
     return self;
@@ -40,12 +44,17 @@
     self.audioPlayer.currentTime = 0;
     [self.audioPlayer play];
     NSLog(@"%@",self.tune);
-     [self setBackgroundColor:[UIColor colorWithR:88 G:88 B:90 A:1]];
+    [self changeColor];
 }
 
 
-- (void)touchUpEnd{
+- (void)changeColor{
+    [self setBackgroundColor:[UIColor colorWithR:88 G:88 B:90 A:1]];
+}
+
+- (void)changeColorBack{
     [self setBackgroundColor:[UIColor blackColor]];
 }
+
 
 @end
