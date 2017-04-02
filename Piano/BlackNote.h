@@ -12,5 +12,7 @@
 
 @property (nonatomic, strong) NSString *tune;
 
+- (void)playNote;
+- (void)touchUpEnd;
 
 @end

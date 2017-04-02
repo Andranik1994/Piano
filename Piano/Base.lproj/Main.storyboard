@@ -13,7 +13,7 @@
         <scene sceneID="3UB-uW-4iI">
             <objects>
                 <navigationController id="6Jz-qq-60Z" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NGk-gK-x17">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NGk-gK-x17">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -28,7 +28,7 @@
         <!--Regestration View Controller-->
         <scene sceneID="dgb-3k-iYf">
             <objects>
-                <viewController id="EFX-au-b0f" customClass="RegestrationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="regestrationViewController" id="EFX-au-b0f" customClass="RegestrationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aiV-Ol-a84"/>
                         <viewControllerLayoutGuide type="bottom" id="hKJ-gG-LCz"/>
@@ -37,27 +37,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYH-Xo-2GW" customClass="GIDSignInButton">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HYH-Xo-2GW" customClass="GIDSignInButton">
                                 <rect key="frame" x="218" y="163" width="230" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 <connections>
-                                    <action selector="pushGoogleButon:" destination="EFX-au-b0f" eventType="touchUpInside" id="rI5-e2-imB"/>
+                                    <action selector="pushGoogleSignIn:" destination="EFX-au-b0f" eventType="touchUpInside" id="2Hb-6a-w61"/>
                                 </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="HYH-Xo-2GW" firstAttribute="centerY" secondItem="xQb-S3-mX9" secondAttribute="centerY" id="a7X-Jq-EeN"/>
-                            <constraint firstItem="HYH-Xo-2GW" firstAttribute="top" secondItem="aiV-Ol-a84" secondAttribute="bottom" constant="143" id="bzG-8e-7Xb"/>
-                            <constraint firstItem="HYH-Xo-2GW" firstAttribute="centerX" secondItem="xQb-S3-mX9" secondAttribute="centerX" id="qHc-oj-Jch"/>
-                            <constraint firstItem="HYH-Xo-2GW" firstAttribute="leading" secondItem="xQb-S3-mX9" secondAttribute="leading" constant="218" id="xhK-wU-yYR"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Bfn-lC-ygc"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="googleButton" destination="HYH-Xo-2GW" id="O7Q-Us-ds2"/>
+                        <segue destination="Rwj-Wi-SFI" kind="show" id="VPv-Rt-Mda"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXj-9S-fRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -77,8 +72,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="RgA-mi-Bgt">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" id="85i-AV-2QQ">
+                            <rect key="frame" x="200.5" y="7" width="266" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="First"/>
+                                <segment title="Second"/>
+                                <segment title="Third"/>
+                            </segments>
+                            <connections>
+                                <action selector="chooseOctave:" destination="Rwj-Wi-SFI" eventType="valueChanged" id="Zm7-VZ-U5b"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="octaveControl" destination="85i-AV-2QQ" id="Ihd-QZ-HdO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Em-wo-iYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -9,7 +9,7 @@
 #import "RegestrationViewController.h"
 
 
-@interface RegestrationViewController () 
+@interface RegestrationViewController ()
 
 @property(weak, nonatomic) IBOutlet GIDSignInButton *googleButton;
 
@@ -18,31 +18,48 @@
 @implementation RegestrationViewController
 
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
+    self.title = @"WELCOME";
     [GIDSignIn sharedInstance].uiDelegate = self;
-
     if ([FIRAuth auth].currentUser) {
         UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"pianoViewController"];
         [self.navigationController pushViewController:VC animated:NO];
-    } else {
-        [super viewDidLoad];
-        
-//        [GIDSignIn sharedInstance].uiDelegate = self;
-//        [[GIDSignIn sharedInstance] signIn];
-//        self.googleButton.style = kGIDSignInButtonStyleStandard;
-        self.title = @"WELCOME";
-        
     }
     
-    
 }
-- (IBAction)pushGoogleButon:(id)sender {
-   
-
-    
+- (IBAction)pushGoogleSignIn:(id)sender {
+    NSLog(@"In - RegestrationViewController 'pushGoogleSignIn'");
 }
 
+#pragma mark - Google SignIn Delegate
 
+- (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
+    NSLog(@"In - RegestrationViewController 'signInWillDispatch'");
+}
 
+- (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController{
+    
+    [self presentViewController:viewController animated:YES completion:nil];
+    NSLog(@"In - RegestrationViewController 'signIn presentViewController'");
+}
+
+- (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
+    
+    UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"pianoViewController"];
+    [self.navigationController pushViewController:VC animated:NO];
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
+    NSLog(@"In - RegestrationViewController 'signIn dismissViewController'");
+}
+
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user
+     withError:(NSError *)error {
+    
+    NSLog(@"In - RegestrationViewController 'signIn didSignInForUser:'");
+    //user signed in
+    //get user data in "user" (GIDGoogleUser object)
+    UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"pianoViewController"];
+    [self.navigationController pushViewController:VC animated:NO];
+}
 
 @end

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface WhiteNote : UIButton
 
 @property (nonatomic, strong) NSString *tune;
+
+- (void)playNote;
+- (void)touchUpEnd;
 
 @end

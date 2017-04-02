@@ -11,6 +11,7 @@
 		6D1761CE1E89F16D000067DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1761CD1E89F16D000067DE /* AVFoundation.framework */; };
 		6D1761D21E89F1EE000067DE /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = 6D1761D11E89F1EE000067DE /* Sound */; };
 		6D1761DA1E89FBDA000067DE /* WhiteNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1761D91E89FBDA000067DE /* WhiteNote.m */; };
+		6D6126211E91069E0050DD77 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6126201E91069E0050DD77 /* UIColor+Additions.m */; };
 		6D96D8E71E8EA3B3007A89E5 /* BlackNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D96D8E61E8EA3B3007A89E5 /* BlackNote.m */; };
 		6D96D8EA1E8EC0FE007A89E5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D96D8E91E8EC0FE007A89E5 /* ProfileViewController.m */; };
 		6DA1DCE71E8EF81900B49083 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DA1DCE61E8EF81900B49083 /* AdSupport.framework */; };
@@ -33,6 +34,8 @@
 		6D1761D11E89F1EE000067DE /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sound; sourceTree = "<group>"; };
 		6D1761D81E89FBDA000067DE /* WhiteNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhiteNote.h; sourceTree = "<group>"; };
 		6D1761D91E89FBDA000067DE /* WhiteNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhiteNote.m; sourceTree = "<group>"; };
+		6D61261F1E91069E0050DD77 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
+		6D6126201E91069E0050DD77 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 		6D96D8E51E8EA3B3007A89E5 /* BlackNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackNote.h; sourceTree = "<group>"; };
 		6D96D8E61E8EA3B3007A89E5 /* BlackNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackNote.m; sourceTree = "<group>"; };
 		6D96D8E81E8EC0FE007A89E5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				6D96D8E61E8EA3B3007A89E5 /* BlackNote.m */,
 				6D1761D81E89FBDA000067DE /* WhiteNote.h */,
 				6D1761D91E89FBDA000067DE /* WhiteNote.m */,
+				6D61261F1E91069E0050DD77 /* UIColor+Additions.h */,
+				6D6126201E91069E0050DD77 /* UIColor+Additions.m */,
 			);
 			path = Piano;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 			files = (
 				6DD289811E897A5400DDE065 /* Piano.xcdatamodeld in Sources */,
 				6DD2898F1E897A8F00DDE065 /* RegestrationViewController.m in Sources */,
+				6D6126211E91069E0050DD77 /* UIColor+Additions.m in Sources */,
 				6D96D8EA1E8EC0FE007A89E5 /* ProfileViewController.m in Sources */,
 				6DD289921E897BB300DDE065 /* PianoViewController.m in Sources */,
 				6DD289781E897A5400DDE065 /* AppDelegate.m in Sources */,

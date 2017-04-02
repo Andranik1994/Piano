@@ -123,12 +123,7 @@ didSignInForUser:(GIDGoogleUser *)user
         
         [[FIRAuth auth] signInWithCredential:credential
                                   completion:^(FIRUser *user, NSError *error) {
-                                      
-                                      UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                                      UIViewController *VC = [storyBoard instantiateViewControllerWithIdentifier:@"pianoViewController"];
-                                      self.window.rootViewController = VC;
-                                      [self.window makeKeyAndVisible];
-                                      
+                                      NSLog(@"In - AppDelegate 'signIn didSignInForUser'");
                                       if (error) {
                                           // ...
                                           return;
