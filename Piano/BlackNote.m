@@ -43,7 +43,6 @@
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
     self.audioPlayer.currentTime = 0;
     [self.audioPlayer play];
-    NSLog(@"%@",self.tune);
     [self changeColor];
 }
 

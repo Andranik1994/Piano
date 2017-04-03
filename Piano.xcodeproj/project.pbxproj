@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D1761CB1E89F083000067DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D1761CA1E89F083000067DE /* Assets.xcassets */; };
 		6D1761CE1E89F16D000067DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1761CD1E89F16D000067DE /* AVFoundation.framework */; };
 		6D1761D21E89F1EE000067DE /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = 6D1761D11E89F1EE000067DE /* Sound */; };
 		6D1761DA1E89FBDA000067DE /* WhiteNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1761D91E89FBDA000067DE /* WhiteNote.m */; };
@@ -16,6 +15,7 @@
 		6D96D8EA1E8EC0FE007A89E5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D96D8E91E8EC0FE007A89E5 /* ProfileViewController.m */; };
 		6DA1DCE71E8EF81900B49083 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DA1DCE61E8EF81900B49083 /* AdSupport.framework */; };
 		6DA1DCE91E8F0E1200B49083 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6DA1DCE81E8F0E1200B49083 /* GoogleService-Info.plist */; };
+		6DA7B9541E9133F80012B155 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DA7B9531E9133F80012B155 /* Assets.xcassets */; };
 		6DD289751E897A5400DDE065 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD289741E897A5400DDE065 /* main.m */; };
 		6DD289781E897A5400DDE065 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD289771E897A5400DDE065 /* AppDelegate.m */; };
 		6DD2897E1E897A5400DDE065 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DD2897C1E897A5400DDE065 /* Main.storyboard */; };
@@ -29,7 +29,6 @@
 /* Begin PBXFileReference section */
 		413CAE9C89B92B54D379C3C0 /* libPods-Piano.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Piano.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FAC810CF8E8A0544AB9BD64 /* Pods-Piano.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piano.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Piano/Pods-Piano.debug.xcconfig"; sourceTree = "<group>"; };
-		6D1761CA1E89F083000067DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6D1761CD1E89F16D000067DE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6D1761D11E89F1EE000067DE /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sound; sourceTree = "<group>"; };
 		6D1761D81E89FBDA000067DE /* WhiteNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhiteNote.h; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		6D96D8E91E8EC0FE007A89E5 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		6DA1DCE61E8EF81900B49083 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6DA1DCE81E8F0E1200B49083 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6DA7B9531E9133F80012B155 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DD289701E897A5400DDE065 /* Piano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piano.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DD289741E897A5400DDE065 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6DD289761E897A5400DDE065 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 				6D96D8E91E8EC0FE007A89E5 /* ProfileViewController.m */,
 				6DD2897C1E897A5400DDE065 /* Main.storyboard */,
 				6DD289841E897A5400DDE065 /* LaunchScreen.storyboard */,
-				6D1761CA1E89F083000067DE /* Assets.xcassets */,
+				6DA7B9531E9133F80012B155 /* Assets.xcassets */,
 				6D1761D11E89F1EE000067DE /* Sound */,
 				6DD289871E897A5400DDE065 /* Info.plist */,
 				6DA1DCE81E8F0E1200B49083 /* GoogleService-Info.plist */,
@@ -208,10 +208,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DD289861E897A5400DDE065 /* LaunchScreen.storyboard in Resources */,
-				6D1761CB1E89F083000067DE /* Assets.xcassets in Resources */,
 				6DA1DCE91E8F0E1200B49083 /* GoogleService-Info.plist in Resources */,
 				6D1761D21E89F1EE000067DE /* Sound in Resources */,
 				6DD2897E1E897A5400DDE065 /* Main.storyboard in Resources */,
+				6DA7B9541E9133F80012B155 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6Jz-qq-60Z">
-    <device id="retina4_7" orientation="landscape">
+    <device id="retina5_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -34,7 +34,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hKJ-gG-LCz"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xQb-S3-mX9">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HYH-Xo-2GW" customClass="GIDSignInButton">
@@ -50,6 +50,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Bfn-lC-ygc"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="googleButton" destination="HYH-Xo-2GW" id="O7Q-Us-ds2"/>
                         <segue destination="Rwj-Wi-SFI" kind="show" id="VPv-Rt-Mda"/>
@@ -68,14 +69,14 @@
                         <viewControllerLayoutGuide type="bottom" id="LY2-bJ-GSy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NAw-nd-S5E">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="RgA-mi-Bgt">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" id="85i-AV-2QQ">
-                            <rect key="frame" x="200.5" y="7" width="266" height="30"/>
+                            <rect key="frame" x="235" y="7" width="266" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="First"/>
@@ -87,6 +88,7 @@
                             </connections>
                         </segmentedControl>
                     </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="octaveControl" destination="85i-AV-2QQ" id="Ihd-QZ-HdO"/>
                     </connections>
@@ -104,10 +106,11 @@
                         <viewControllerLayoutGuide type="bottom" id="1tA-WG-3qR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EGH-DJ-a0u">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecV-MY-Y5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
