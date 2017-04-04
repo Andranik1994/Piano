@@ -10,6 +10,8 @@
 #import "WhiteNote.h"
 #import "BlackNote.h"
 #import <QuartzCore/QuartzCore.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import<AVFoundation/AVFoundation.h>
 
 @interface PianoViewController ()
 
@@ -25,6 +27,10 @@
 
 @property (strong, nonatomic) NSString *deletetNotes;
 
+@property (nonatomic,strong) AVAudioPlayer *audioPlayer;
+
+@property (nonatomic , strong) NSNumber *number;
+
 @end
 
 @implementation PianoViewController
@@ -36,6 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.deletetNotes = [NSString new];
+    self.number = [[NSNumber alloc] initWithInt:0];
     // Navigation Items
     
     UIImage *profileImage = [UIImage imageNamed:@"profileLinkImage.png"];
@@ -56,8 +63,21 @@
     [saveButton addTarget:self action:@selector(save)
          forControlEvents:UIControlEventTouchUpInside];
     [saveButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *leftBarButton =[[UIBarButtonItem alloc] initWithCustomView:saveButton];
-    self.navigationItem.leftBarButtonItem = leftBarButton;
+    UIBarButtonItem *saveButtonItem =[[UIBarButtonItem alloc] initWithCustomView:saveButton];
+    // self.navigationItem.leftBarButtonItem = leftBarButton;
+    
+    UIImage *playImage = [UIImage imageNamed:@"playImage.png"];
+    frameimg = CGRectMake(0, 0, 30 , 30);
+    UIButton *playButton = [[UIButton alloc] initWithFrame:frameimg];
+    [playButton setBackgroundImage:playImage forState:UIControlStateNormal];
+    [playButton addTarget:self action:@selector(play)
+         forControlEvents:UIControlEventTouchUpInside];
+    [playButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *playButtonItem =[[UIBarButtonItem alloc] initWithCustomView:playButton];
+    //self.navigationItem.leftBarButtonItems = leftBarButton;
+    
+    //self.navigationItem.leftItemsSupplementBackButton = YES;
+    self.navigationItem.leftBarButtonItems = @[saveButtonItem, playButtonItem];
     
     
     // PianoView
@@ -518,6 +538,69 @@
 - (void)save{
     NSLog(@"Save!!!");
 }
+
+- (void)play{
+    NSArray *split = [[self.noticeLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsSeparatedByString: @" "];
+    
+   //NSLog(@"%@",[split objectAtIndex:self.number.unsignedIntValue]);
+    
+    if(self.number.unsignedIntValue < [split count]){
+
+        if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1'"]){
+            [NSTimer scheduledTimerWithTimeInterval:4.0
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/2'"]){
+            [NSTimer scheduledTimerWithTimeInterval:2.0
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/4'"]){
+            [NSTimer scheduledTimerWithTimeInterval:1.0
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/8'"]){
+            [NSTimer scheduledTimerWithTimeInterval:0.5
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/16'"]){
+            [NSTimer scheduledTimerWithTimeInterval:0.25
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/32'"]){
+            [NSTimer scheduledTimerWithTimeInterval:0.125
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else{
+            NSString *path = [NSString stringWithFormat:@"%@/Sound/%@.aif",[[NSBundle mainBundle] resourcePath],[split objectAtIndex:self.number.unsignedIntValue]];
+            NSURL *soundURL = [NSURL fileURLWithPath:path];
+            self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
+            self.audioPlayer.currentTime = 0;
+            [self.audioPlayer play];
+            self.number = [NSNumber numberWithUnsignedInteger:self.number.unsignedIntValue +1];
+            [self play];
+        }
+    }else if (self.number.unsignedIntValue == [split count]){
+        self.number = [NSNumber numberWithUnsignedInteger:0];
+    }
+}
+
+- (void)timerOff{
+    self.number = [NSNumber numberWithUnsignedInteger:self.number.unsignedIntValue +1];
+    [self play];
+}
+
 
 - (void)back{
     if (![self.noticeLabel.text isEqualToString:@""]){
