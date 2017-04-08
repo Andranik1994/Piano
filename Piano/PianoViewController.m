@@ -12,8 +12,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import<AVFoundation/AVFoundation.h>
+@import Firebase;
+@import GoogleSignIn;
 
-@interface PianoViewController ()
+@interface PianoViewController () <AVAudioPlayerDelegate>
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *octaveControl;
 
@@ -31,11 +33,13 @@
 
 @property (nonatomic , strong) NSNumber *number;
 
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+
 @end
 
 @implementation PianoViewController
 
--(BOOL)prefersStatusBarHidden{
+- (BOOL)prefersStatusBarHidden{
     return YES;
 }
 
@@ -45,7 +49,7 @@
     self.number = [[NSNumber alloc] initWithInt:0];
     // Navigation Items
     
-    UIImage *profileImage = [UIImage imageNamed:@"profileLinkImage.png"];
+    UIImage *profileImage = [UIImage imageNamed:@"profileImage-1.png"];
     CGRect frameimg = CGRectMake(0, 0, 30 , 30);
     UIButton *profileButton = [[UIButton alloc] initWithFrame:frameimg];
     [profileButton setBackgroundImage:profileImage forState:UIControlStateNormal];
@@ -56,7 +60,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButton;
     
     
-    UIImage *saveImage = [UIImage imageNamed:@"saveImage.png"];
+    UIImage *saveImage = [UIImage imageNamed:@"saveImage-1.png"];
     frameimg = CGRectMake(0, 0, 30 , 30);
     UIButton *saveButton = [[UIButton alloc] initWithFrame:frameimg];
     [saveButton setBackgroundImage:saveImage forState:UIControlStateNormal];
@@ -64,9 +68,8 @@
          forControlEvents:UIControlEventTouchUpInside];
     [saveButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *saveButtonItem =[[UIBarButtonItem alloc] initWithCustomView:saveButton];
-    // self.navigationItem.leftBarButtonItem = leftBarButton;
     
-    UIImage *playImage = [UIImage imageNamed:@"playImage.png"];
+    UIImage *playImage = [UIImage imageNamed:@"playImage-1.png"];
     frameimg = CGRectMake(0, 0, 30 , 30);
     UIButton *playButton = [[UIButton alloc] initWithFrame:frameimg];
     [playButton setBackgroundImage:playImage forState:UIControlStateNormal];
@@ -74,9 +77,7 @@
          forControlEvents:UIControlEventTouchUpInside];
     [playButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *playButtonItem =[[UIBarButtonItem alloc] initWithCustomView:playButton];
-    //self.navigationItem.leftBarButtonItems = leftBarButton;
     
-    //self.navigationItem.leftItemsSupplementBackButton = YES;
     self.navigationItem.leftBarButtonItems = @[saveButtonItem, playButtonItem];
     
     
@@ -186,8 +187,8 @@
                                                                      self.view.frame.size.height*5/10-self.navigationController.navigationBar.frame.size.height)];
     [self.view addSubview:self.controlPanelView];
     //// backImage
-    UIImage *backImage = [UIImage imageNamed:@"backImage.png"];
-    frameimg = CGRectMake(0, 0, self.controlPanelView.frame.size.width , self.controlPanelView.frame.size.width);
+    UIImage *backImage = [UIImage imageNamed:@"backImage-1.png"];
+    frameimg = CGRectMake(self.controlPanelView.frame.size.width/3, 10, self.controlPanelView.frame.size.width/1.5 , self.controlPanelView.frame.size.width/1.5);
     UIButton *backButton = [[UIButton alloc] initWithFrame:frameimg];
     [backButton setBackgroundImage:backImage forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(back)
@@ -195,8 +196,8 @@
     [backButton setShowsTouchWhenHighlighted:YES];
     [self.controlPanelView addSubview:backButton];
     //// right Image
-    UIImage *rightImage = [UIImage imageNamed:@"rightImage.png"];
-    frameimg = CGRectMake(0, backButton.frame.size.height, self.controlPanelView.frame.size.width , self.controlPanelView.frame.size.width);
+    UIImage *rightImage = [UIImage imageNamed:@"rightImage-1.png"];
+    frameimg = CGRectMake(self.controlPanelView.frame.size.width/3, backButton.frame.size.height + 18, self.controlPanelView.frame.size.width/1.5 , self.controlPanelView.frame.size.width/1.5);
     UIButton *rightButton = [[UIButton alloc] initWithFrame:frameimg];
     [rightButton setBackgroundImage:rightImage forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(right)
@@ -204,8 +205,8 @@
     [rightButton setShowsTouchWhenHighlighted:YES];
     [self.controlPanelView addSubview:rightButton];
     //// basket Image
-    UIImage *basketImage = [UIImage imageNamed:@"basketImage.png"];
-    frameimg = CGRectMake(0, rightButton.frame.size.height + backButton.frame.size.height, self.controlPanelView.frame.size.width , self.controlPanelView.frame.size.width);
+    UIImage *basketImage = [UIImage imageNamed:@"basketImage-1.png"];
+    frameimg = CGRectMake(self.controlPanelView.frame.size.width/3, rightButton.frame.size.height + backButton.frame.size.height + 26, self.controlPanelView.frame.size.width/1.5 , self.controlPanelView.frame.size.width/1.5);
     UIButton *basketButton = [[UIButton alloc] initWithFrame:frameimg];
     [basketButton setBackgroundImage:basketImage forState:UIControlStateNormal];
     [basketButton addTarget:self action:@selector(basket)
@@ -219,6 +220,9 @@
     self.octaveControl.selectedSegmentIndex = 1;
     [self createWhiteKey:self.octaveControl.selectedSegmentIndex];
     [self createBlackKey:self.octaveControl.selectedSegmentIndex];
+    
+    //Firebase
+    self.ref = [[FIRDatabase database] reference];
     
 }
 
@@ -531,21 +535,60 @@
 - (void)goToProfile{
     UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"profileViewController"];
     
-    [self.navigationController pushViewController:VC animated:NO];
+    [self.navigationController pushViewController:VC animated:YES];
     
 }
 
 - (void)save{
-    NSLog(@"Save!!!");
+    
+    if (![self.noticeLabel.text  isEqual: @""]){
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Great !"
+                                                                       message:@"Write the name of composition."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"SAVE" style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               
+                                                               UITextField *nameField = alert.textFields[0];
+                                                               
+                                                               NSString *userID = [FIRAuth auth].currentUser.uid;
+                                                               
+                                                               FIRDatabaseReference *userReference = [[[FIRDatabase database] referenceFromURL:
+                                                                                                       [NSString stringWithFormat:@"https://piano-17dd1.firebaseio.com/users/%@",userID]]
+                                                                                                      child:@"songs"];
+                                                               
+                                                               NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                       self.noticeLabel.text,nameField.text,
+                                                                                       nil];
+                                                               
+                                                               [userReference updateChildValues:values withCompletionBlock:^(NSError *__nullable err, FIRDatabaseReference * ref){
+                                                                   if(err) {
+                                                                       NSLog(@"In - PianoViewCantroller - Error in save ");
+                                                                       return;
+                                                                   }
+                                                                   NSLog(@"Saved song seccessfully in FireBace db");
+                                                               }];
+                                                           }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:saveAction];
+        [alert addAction:cancelAction];
+        
+        [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.placeholder = @"Input name...";
+        }];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)play{
     NSArray *split = [[self.noticeLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsSeparatedByString: @" "];
-    
-   //NSLog(@"%@",[split objectAtIndex:self.number.unsignedIntValue]);
-    
-    if(self.number.unsignedIntValue < [split count]){
 
+    if(self.number.unsignedIntValue < [split count]){
+        
         if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1'"]){
             [NSTimer scheduledTimerWithTimeInterval:4.0
                                              target:self
@@ -630,9 +673,26 @@
     
     
 }
+
 - (void)basket{
-    self.deletetNotes = @"";
-    self.noticeLabel.text = @"";
+    if(![self.noticeLabel.text isEqual:@""]){
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete"
+                                                                   message:@"Do you really want to delete your composition?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          self.deletetNotes = @"";
+                                                          self.noticeLabel.text = @"";
+                                                      }];
+    
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action){}];
+    
+    [alert addAction:yesAction];
+    [alert addAction:noAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)setInterval:(UIButton *)sender{

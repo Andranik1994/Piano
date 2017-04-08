@@ -13,6 +13,8 @@
 
 @property(weak, nonatomic) IBOutlet GIDSignInButton *googleButton;
 
+//@property (strong, nonatomic) FIRDatabaseReference *ref;
+
 @end
 
 @implementation RegestrationViewController
@@ -50,16 +52,6 @@
     
     [self dismissViewControllerAnimated:NO completion:nil];
     NSLog(@"In - RegestrationViewController 'signIn dismissViewController'");
-}
-
-- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user
-     withError:(NSError *)error {
-    
-    NSLog(@"In - RegestrationViewController 'signIn didSignInForUser:'");
-    //user signed in
-    //get user data in "user" (GIDGoogleUser object)
-    UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"pianoViewController"];
-    [self.navigationController pushViewController:VC animated:NO];
 }
 
 @end

@@ -121,9 +121,28 @@ didSignInForUser:(GIDGoogleUser *)user
         FIRAuthCredential *credential = [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
                                                                          accessToken:authentication.accessToken];
         
+        
         [[FIRAuth auth] signInWithCredential:credential
                                   completion:^(FIRUser *user, NSError *error) {
                                       NSLog(@"In - AppDelegate 'signIn didSignInForUser'");
+                                      
+                                      
+                                      FIRDatabaseReference *usersReference = [[[FIRDatabase database] referenceFromURL:@"https://piano-17dd1.firebaseio.com/users"]
+                                                                              child:user.uid];
+                                      
+                                      
+                                      NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                              user.displayName,@"name",
+                                                              nil];
+                                      
+                                      [usersReference updateChildValues:values withCompletionBlock:^(NSError *__nullable err, FIRDatabaseReference * ref){
+                                       if(err) {
+                                           NSLog(@"In - AppDelegate Error in updateChildValues:values withCompletionBlock ");
+                                           return;
+                                       }
+                                       NSLog(@"Saved user seccessfully in FireBace db");
+                                       }];
+                                      
                                       if (error) {
                                           // ...
                                           return;

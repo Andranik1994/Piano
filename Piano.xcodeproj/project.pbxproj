@@ -16,6 +16,7 @@
 		6DA1DCE71E8EF81900B49083 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DA1DCE61E8EF81900B49083 /* AdSupport.framework */; };
 		6DA1DCE91E8F0E1200B49083 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6DA1DCE81E8F0E1200B49083 /* GoogleService-Info.plist */; };
 		6DA7B9541E9133F80012B155 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DA7B9531E9133F80012B155 /* Assets.xcassets */; };
+		6DAFD97E1E97DE6C0036817F /* OwnSongsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAFD97D1E97DE6C0036817F /* OwnSongsTableViewController.m */; };
 		6DD289751E897A5400DDE065 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD289741E897A5400DDE065 /* main.m */; };
 		6DD289781E897A5400DDE065 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD289771E897A5400DDE065 /* AppDelegate.m */; };
 		6DD2897E1E897A5400DDE065 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DD2897C1E897A5400DDE065 /* Main.storyboard */; };
@@ -42,6 +43,8 @@
 		6DA1DCE61E8EF81900B49083 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6DA1DCE81E8F0E1200B49083 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6DA7B9531E9133F80012B155 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6DAFD97C1E97DE6C0036817F /* OwnSongsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnSongsTableViewController.h; sourceTree = "<group>"; };
+		6DAFD97D1E97DE6C0036817F /* OwnSongsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnSongsTableViewController.m; sourceTree = "<group>"; };
 		6DD289701E897A5400DDE065 /* Piano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piano.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DD289741E897A5400DDE065 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6DD289761E897A5400DDE065 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -119,6 +122,8 @@
 				6DD289911E897BB300DDE065 /* PianoViewController.m */,
 				6D96D8E81E8EC0FE007A89E5 /* ProfileViewController.h */,
 				6D96D8E91E8EC0FE007A89E5 /* ProfileViewController.m */,
+				6DAFD97C1E97DE6C0036817F /* OwnSongsTableViewController.h */,
+				6DAFD97D1E97DE6C0036817F /* OwnSongsTableViewController.m */,
 				6DD2897C1E897A5400DDE065 /* Main.storyboard */,
 				6DD289841E897A5400DDE065 /* LaunchScreen.storyboard */,
 				6DA7B9531E9133F80012B155 /* Assets.xcassets */,
@@ -275,6 +280,7 @@
 				6D6126211E91069E0050DD77 /* UIColor+Additions.m in Sources */,
 				6D96D8EA1E8EC0FE007A89E5 /* ProfileViewController.m in Sources */,
 				6DD289921E897BB300DDE065 /* PianoViewController.m in Sources */,
+				6DAFD97E1E97DE6C0036817F /* OwnSongsTableViewController.m in Sources */,
 				6DD289781E897A5400DDE065 /* AppDelegate.m in Sources */,
 				6D96D8E71E8EA3B3007A89E5 /* BlackNote.m in Sources */,
 				6DD289751E897A5400DDE065 /* main.m in Sources */,
