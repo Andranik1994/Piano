@@ -109,11 +109,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="11x-G8-b4y">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="DOJ-8z-sbr">
+                            <rect key="frame" x="235" y="7" width="266" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Profile"/>
+                                <segment title="Search"/>
+                            </segments>
+                            <connections>
+                                <action selector="chooseOctave:" destination="Rwj-Wi-SFI" eventType="valueChanged" id="iUl-yG-GXC"/>
+                                <action selector="chooseSegment:" destination="sOF-cZ-hrX" eventType="valueChanged" id="1yl-fm-ypf"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="segmentControl" destination="DOJ-8z-sbr" id="R9r-gh-9PI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecV-MY-Y5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1800" y="226"/>
+            <point key="canvasLocation" x="1800.0000000000002" y="224.63768115942031"/>
         </scene>
         <!--Own Songs Table View Controller-->
         <scene sceneID="1Lb-HG-O0f">
@@ -141,7 +159,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="02Q-mb-0Sl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2501" y="-229"/>
+            <point key="canvasLocation" x="2493" y="226"/>
         </scene>
     </scenes>
 </document>

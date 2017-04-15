@@ -5,16 +5,30 @@
 //  Created by Andranik on 3/31/17.
 //  Copyright © 2017 Andranik. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import<AVFoundation/AVFoundation.h>
 #import "ProfileViewController.h"
 @import Firebase;
 @import GoogleSignIn;
 
-@interface ProfileViewController ()
+@interface ProfileViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @property (strong ,nonatomic) UIImageView *profileImageView;
 
+@property (strong, nonatomic) UILabel *nameLabel;
+
+@property (strong, nonatomic) UITableView *myTableView;
+
+@property (strong ,nonatomic) NSMutableDictionary *songsDictionary;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+
+@property (nonatomic , strong) NSNumber *number;
+@property (nonatomic,strong) AVAudioPlayer *audioPlayer;
+@property (strong ,nonatomic) NSString *currentSong;
+
 
 @end
 
@@ -23,6 +37,53 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.segmentControl.selectedSegmentIndex = 0;
+    [self controlProfile:self.segmentControl.selectedSegmentIndex];
+    
+    
+    self.ref = [[FIRDatabase database] reference];
+    self.songsDictionary = [NSMutableDictionary new];
+    self.number = [[NSNumber alloc] initWithInt:0];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSString *userID = [FIRAuth auth].currentUser.uid;
+    [[[[self.ref child:@"users"] child:userID ] child:@"songs"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        // Get user value
+        NSEnumerator *children = [snapshot children];
+        FIRDataSnapshot *child;
+        while (child = [children nextObject]) {
+            [self.songsDictionary setObject:child.value forKey:child.key];
+        }
+        
+        [self.myTableView reloadData];
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+    
+    
+}
+
+#pragma mark - SegmentController
+- (IBAction)chooseSegment:(UISegmentedControl *)sender {
+    switch (sender.selectedSegmentIndex) {
+        case 0:{
+            [self controlProfile:sender.selectedSegmentIndex];
+            break;
+        }
+        case 1:{
+            [self controlSearch:sender.selectedSegmentIndex];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)controlProfile:(NSUInteger)segmentIndex{
+    NSLog(@"Profile");
     FIRUser *currentUser = [FIRAuth auth].currentUser;
     
     NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"%@",currentUser.photoURL]];
@@ -39,50 +100,158 @@
     self.profileImageView.clipsToBounds = YES;
     [self.view addSubview:self.profileImageView];
     
-
+    
     
     
     UIFont * customFont = [UIFont fontWithName:@"HelveticaNeue" size:16];
     
-    UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.height/15 + 60 + self.view.frame.size.height/15,  self.view.frame.size.width/15, 500, 50)];
-    fromLabel.text = currentUser.displayName;
-    fromLabel.font = customFont;
-    fromLabel.numberOfLines = 1;
-    fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;     fromLabel.adjustsFontSizeToFitWidth = YES;
-    fromLabel.minimumScaleFactor = 10.0f/12.0f;
-    fromLabel.clipsToBounds = YES;
-    fromLabel.backgroundColor = [UIColor clearColor];
-    fromLabel.textColor = [UIColor blackColor];
-    fromLabel.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:fromLabel];
+    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.height/15 + 60 + self.view.frame.size.height/15,  self.view.frame.size.width/15, self.view.frame.size.height/2 - self.view.frame.size.height/15 + 60, 50)];
+    self.nameLabel.text = currentUser.displayName;
+    self.nameLabel.font = customFont;
+    self.nameLabel.numberOfLines = 1;
+    self.nameLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
+    self.nameLabel.adjustsFontSizeToFitWidth = YES;
+    self.nameLabel.minimumScaleFactor = 10.0f/12.0f;
+    self.nameLabel.clipsToBounds = YES;
+    self.nameLabel.backgroundColor = [UIColor clearColor];
+    self.nameLabel.textColor = [UIColor blackColor];
+    self.nameLabel.textAlignment = NSTextAlignmentLeft;
+    self.nameLabel.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.nameLabel];
     
-    //OwnSongsButton
-    CGRect frameimg = CGRectMake(self.view.frame.size.width/10, self.view.frame.size.height/2, self.view.frame.size.width*2/10 , 30);
-    UIButton *ownSongsButton = [[UIButton alloc] initWithFrame:frameimg];
-    [ownSongsButton setBackgroundColor:[UIColor redColor]];
-    [ownSongsButton addTarget:self action:@selector(goToOwnSongsTableView)
-         forControlEvents:UIControlEventTouchUpInside];
-    [ownSongsButton setTitle:@"Own Songs" forState:UIControlStateNormal];
-
-    [self.view addSubview:ownSongsButton];
-    //SearchSongsButton
-    frameimg = CGRectMake(self.view.frame.size.width*4/10, self.view.frame.size.height/2, self.view.frame.size.width*2/10 , 30);
-    UIButton *searchSongsButton = [[UIButton alloc] initWithFrame:frameimg];
-    [searchSongsButton setBackgroundColor:[UIColor redColor]];
-    [searchSongsButton addTarget:self action:@selector(goToSearchSongs)
-             forControlEvents:UIControlEventTouchUpInside];
-     [searchSongsButton setTitle:@"Search" forState:UIControlStateNormal];
     
-    [self.view addSubview:searchSongsButton];
     
+    self.myTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2,
+                                                                     self.navigationController.navigationBar.frame.size.height,
+                                                                     self.view.frame.size.width/2,
+                                                                     self.view.frame.size.height)];
+    [self.view addSubview:self.myTableView];
+    self.myTableView.delegate = self;
+    self.myTableView.dataSource = self;
 }
 
-- (void)goToOwnSongsTableView{
-    UITableViewController *TVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ownSongsTableViewController"];
-    [self.navigationController pushViewController:TVC animated:YES];
+- (void)controlSearch:(NSUInteger)segmentIndex{
+    NSLog(@"Search");
+    [self.profileImageView removeFromSuperview];
+    [self.nameLabel removeFromSuperview];
+    [self.myTableView removeFromSuperview];
 }
 
-- (void)goToSearchSongs{
-    NSLog(@"Search !!!");
+#pragma mark - TableView
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.songsDictionary count];
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentifier = @"cellID";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
+                             cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:
+                UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    cell.textLabel.text = [[self.songsDictionary allKeys] objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    self.currentSong = [self.songsDictionary objectForKey:cell.textLabel.text];
+    [self play];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+
+        NSString *userID = [FIRAuth auth].currentUser.uid;
+        [[[[self.ref child:@"users"] child:userID ] child:@"songs"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            // Get user value
+            NSEnumerator *children = [snapshot children];
+            FIRDataSnapshot *child;
+            while (child = [children nextObject]) {
+                if([child.key isEqualToString:cell.textLabel.text]){
+                    [child.ref removeValue];
+                    [self.songsDictionary removeObjectForKey:child.key];
+                    [tableView reloadData];
+                }
+            }
+        } withCancelBlock:^(NSError * _Nonnull error) {
+            NSLog(@"%@", error.localizedDescription);
+        }];
+    }
+}
+
+
+#pragma mark - PlaySong
+
+- (void)play{
+    NSArray *split = [[self.currentSong stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsSeparatedByString: @" "];
+    
+    if(self.number.unsignedIntValue < [split count]){
+        
+        if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1'"]){
+            [NSTimer scheduledTimerWithTimeInterval:4.0
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/2'"]){
+            [NSTimer scheduledTimerWithTimeInterval:2.0
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/4'"]){
+            [NSTimer scheduledTimerWithTimeInterval:1.0
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/8'"]){
+            [NSTimer scheduledTimerWithTimeInterval:0.5
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/16'"]){
+            [NSTimer scheduledTimerWithTimeInterval:0.25
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1/32'"]){
+            [NSTimer scheduledTimerWithTimeInterval:0.125
+                                             target:self
+                                           selector:@selector(timerOff)
+                                           userInfo:nil
+                                            repeats:NO];
+        }else{
+            NSString *path = [NSString stringWithFormat:@"%@/Sound/%@.aif",[[NSBundle mainBundle] resourcePath],[split objectAtIndex:self.number.unsignedIntValue]];
+            NSURL *soundURL = [NSURL fileURLWithPath:path];
+            self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
+            self.audioPlayer.currentTime = 0;
+            [self.audioPlayer play];
+            self.number = [NSNumber numberWithUnsignedInteger:self.number.unsignedIntValue +1];
+            [self play];
+        }
+    }else if (self.number.unsignedIntValue == [split count]){
+        self.number = [NSNumber numberWithUnsignedInteger:0];
+    }
+}
+
+- (void)timerOff{
+    self.number = [NSNumber numberWithUnsignedInteger:self.number.unsignedIntValue +1];
+    [self play];
+}
+
+
 @end
