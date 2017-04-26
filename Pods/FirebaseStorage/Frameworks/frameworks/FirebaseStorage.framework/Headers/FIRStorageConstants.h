@@ -51,8 +51,8 @@ typedef void (^FIRStorageVoidMetadataError)(FIRStorageMetadata *_Nullable metada
 
 /**
  * Block typedef typically used when getting or updating metadata with the possibility of an error.
- * @param metadata The metadata returned by the operation, if metadata exists.
- * @param error The error describing failure, if one occurred.
+ * @param snapshot The metadata returned by the operation, if metadata exists.
+ * @param snapshot The error describing failure, if one occurred.
  */
 typedef void (^FIRStorageVoidSnapshot)(FIRStorageTaskSnapshot *snapshot);
 
