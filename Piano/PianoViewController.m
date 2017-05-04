@@ -45,6 +45,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
     self.deletetNotes = [NSString new];
     self.number = [[NSNumber alloc] initWithInt:0];
     // Navigation Items
@@ -223,8 +225,55 @@
     
     //Firebase
     self.ref = [[FIRDatabase database] reference];
-    
 }
+
+/*
+                       UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Wellcome"
+                                                                                      message:@"Write your Nick Name."
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+                       
+                       UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"SAVE" style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {
+                                                                              
+                                                                              UITextField *nickNameField = alert.textFields[0];
+                                                                              
+                                                                              NSString *userID = [FIRAuth auth].currentUser.uid;
+                                                                              
+                                                                              FIRDatabaseReference *userReference = [[FIRDatabase database] referenceFromURL:
+                                                                                                                     [NSString stringWithFormat:@"https://piano-17dd1.firebaseio.com/users/%@",userID]];
+                                                                              
+                                                                              NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                                      nickNameField.text,@"nickName",
+                                                                                                      nil];
+                                                                              
+                                                                              [userReference updateChildValues:values withCompletionBlock:^(NSError *__nullable err, FIRDatabaseReference * ref){
+                                                                                  if(err) {
+                                                                                      NSLog(@"In - PianoViewCantroller - Error in save ");
+                                                                                      return;
+                                                                                  }
+                                                                                  NSLog(@"Saved nickName seccessfully in FireBace db");
+                                                                              }];
+                                                                          }];
+                       
+                       
+                       [alert addAction:saveAction];
+                       
+                       [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                           textField.placeholder = @"Nick Name";
+                       }];
+                       
+                       
+                       NSString *userID = [FIRAuth auth].currentUser.uid;
+                       [[[self.ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                           // Get user value
+                           if(![snapshot hasChild:@"nickName"]){
+                               [self presentViewController:alert animated:YES completion:nil];
+                           }
+                       } withCancelBlock:^(NSError * _Nonnull error) {
+                           NSLog(@"%@", error.localizedDescription);
+                       }];
+                   }];
+*/
 
 - (void)createWhiteKey:(NSUInteger)segmentIndex{
     
@@ -581,12 +630,14 @@
             textField.placeholder = @"Input name...";
         }];
         [self presentViewController:alert animated:YES completion:nil];
+        
+        
     }
 }
 
 - (void)play{
     NSArray *split = [[self.noticeLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsSeparatedByString: @" "];
-
+    
     if(self.number.unsignedIntValue < [split count]){
         
         if ([[split objectAtIndex:self.number.unsignedIntValue] isEqual: @"'1'"]){
@@ -676,22 +727,22 @@
 
 - (void)basket{
     if(![self.noticeLabel.text isEqual:@""]){
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete"
-                                                                   message:@"Do you really want to delete your composition?"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) {
-                                                          self.deletetNotes = @"";
-                                                          self.noticeLabel.text = @"";
-                                                      }];
-    
-    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * action){}];
-    
-    [alert addAction:yesAction];
-    [alert addAction:noAction];
-    [self presentViewController:alert animated:YES completion:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete"
+                                                                       message:@"Do you really want to delete your composition?"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              self.deletetNotes = @"";
+                                                              self.noticeLabel.text = @"";
+                                                          }];
+        
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action){}];
+        
+        [alert addAction:yesAction];
+        [alert addAction:noAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

@@ -10,6 +10,7 @@
 		6D1761CE1E89F16D000067DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1761CD1E89F16D000067DE /* AVFoundation.framework */; };
 		6D1761D21E89F1EE000067DE /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = 6D1761D11E89F1EE000067DE /* Sound */; };
 		6D1761DA1E89FBDA000067DE /* WhiteNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1761D91E89FBDA000067DE /* WhiteNote.m */; };
+		6D424ED91EB90B950063BAF8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D424ED81EB90B950063BAF8 /* SettingsViewController.m */; };
 		6D6126211E91069E0050DD77 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6126201E91069E0050DD77 /* UIColor+Additions.m */; };
 		6D96D8E71E8EA3B3007A89E5 /* BlackNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D96D8E61E8EA3B3007A89E5 /* BlackNote.m */; };
 		6D96D8EA1E8EC0FE007A89E5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D96D8E91E8EC0FE007A89E5 /* ProfileViewController.m */; };
@@ -21,7 +22,7 @@
 		6DD2897E1E897A5400DDE065 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DD2897C1E897A5400DDE065 /* Main.storyboard */; };
 		6DD289811E897A5400DDE065 /* Piano.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DD2897F1E897A5400DDE065 /* Piano.xcdatamodeld */; };
 		6DD289861E897A5400DDE065 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DD289841E897A5400DDE065 /* LaunchScreen.storyboard */; };
-		6DD2898F1E897A8F00DDE065 /* RegestrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD2898E1E897A8F00DDE065 /* RegestrationViewController.m */; };
+		6DD2898F1E897A8F00DDE065 /* GoogleLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD2898E1E897A8F00DDE065 /* GoogleLogInViewController.m */; };
 		6DD289921E897BB300DDE065 /* PianoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD289911E897BB300DDE065 /* PianoViewController.m */; };
 		9F4CC399C4E8C890763359A4 /* libPods-Piano.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 413CAE9C89B92B54D379C3C0 /* libPods-Piano.a */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,8 @@
 		6D1761D11E89F1EE000067DE /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sound; sourceTree = "<group>"; };
 		6D1761D81E89FBDA000067DE /* WhiteNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhiteNote.h; sourceTree = "<group>"; };
 		6D1761D91E89FBDA000067DE /* WhiteNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhiteNote.m; sourceTree = "<group>"; };
+		6D424ED71EB90B950063BAF8 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		6D424ED81EB90B950063BAF8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6D61261F1E91069E0050DD77 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		6D6126201E91069E0050DD77 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 		6D96D8E51E8EA3B3007A89E5 /* BlackNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackNote.h; sourceTree = "<group>"; };
@@ -50,8 +53,8 @@
 		6DD289801E897A5400DDE065 /* Piano.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Piano.xcdatamodel; sourceTree = "<group>"; };
 		6DD289851E897A5400DDE065 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6DD289871E897A5400DDE065 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6DD2898D1E897A8F00DDE065 /* RegestrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegestrationViewController.h; sourceTree = "<group>"; };
-		6DD2898E1E897A8F00DDE065 /* RegestrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegestrationViewController.m; sourceTree = "<group>"; };
+		6DD2898D1E897A8F00DDE065 /* GoogleLogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleLogInViewController.h; sourceTree = "<group>"; };
+		6DD2898E1E897A8F00DDE065 /* GoogleLogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleLogInViewController.m; sourceTree = "<group>"; };
 		6DD289901E897BB300DDE065 /* PianoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PianoViewController.h; sourceTree = "<group>"; };
 		6DD289911E897BB300DDE065 /* PianoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PianoViewController.m; sourceTree = "<group>"; };
 		E14A279A3E0F7ADC51FA18A4 /* Pods-Piano.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piano.release.xcconfig"; path = "Pods/Target Support Files/Pods-Piano/Pods-Piano.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,12 +116,14 @@
 			children = (
 				6DD289761E897A5400DDE065 /* AppDelegate.h */,
 				6DD289771E897A5400DDE065 /* AppDelegate.m */,
-				6DD2898D1E897A8F00DDE065 /* RegestrationViewController.h */,
-				6DD2898E1E897A8F00DDE065 /* RegestrationViewController.m */,
+				6DD2898D1E897A8F00DDE065 /* GoogleLogInViewController.h */,
+				6DD2898E1E897A8F00DDE065 /* GoogleLogInViewController.m */,
 				6DD289901E897BB300DDE065 /* PianoViewController.h */,
 				6DD289911E897BB300DDE065 /* PianoViewController.m */,
 				6D96D8E81E8EC0FE007A89E5 /* ProfileViewController.h */,
 				6D96D8E91E8EC0FE007A89E5 /* ProfileViewController.m */,
+				6D424ED71EB90B950063BAF8 /* SettingsViewController.h */,
+				6D424ED81EB90B950063BAF8 /* SettingsViewController.m */,
 				6DD2897C1E897A5400DDE065 /* Main.storyboard */,
 				6DD289841E897A5400DDE065 /* LaunchScreen.storyboard */,
 				6DA7B9531E9133F80012B155 /* Assets.xcassets */,
@@ -271,12 +276,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DD289811E897A5400DDE065 /* Piano.xcdatamodeld in Sources */,
-				6DD2898F1E897A8F00DDE065 /* RegestrationViewController.m in Sources */,
+				6DD2898F1E897A8F00DDE065 /* GoogleLogInViewController.m in Sources */,
 				6D6126211E91069E0050DD77 /* UIColor+Additions.m in Sources */,
 				6D96D8EA1E8EC0FE007A89E5 /* ProfileViewController.m in Sources */,
 				6DD289921E897BB300DDE065 /* PianoViewController.m in Sources */,
 				6DD289781E897A5400DDE065 /* AppDelegate.m in Sources */,
 				6D96D8E71E8EA3B3007A89E5 /* BlackNote.m in Sources */,
+				6D424ED91EB90B950063BAF8 /* SettingsViewController.m in Sources */,
 				6DD289751E897A5400DDE065 /* main.m in Sources */,
 				6D1761DA1E89FBDA000067DE /* WhiteNote.m in Sources */,
 			);

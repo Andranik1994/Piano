@@ -130,9 +130,10 @@ didSignInForUser:(GIDGoogleUser *)user
                                       FIRDatabaseReference *usersReference = [[[FIRDatabase database] referenceFromURL:@"https://piano-17dd1.firebaseio.com/users"]
                                                                               child:user.uid];
                                       
-                                      
+
                                       NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                              user.displayName,@"name",
+                                                              user.displayName,@"nickName",
+                                                              @"https://firebasestorage.googleapis.com/v0/b/piano-17dd1.appspot.com/o/User%20Male(528).png?alt=media&token=f7f797cd-0478-4d8e-a042-d30845cbb578",@"profileImageURL",
                                                               nil];
                                       
                                       [usersReference updateChildValues:values withCompletionBlock:^(NSError *__nullable err, FIRDatabaseReference * ref){
@@ -153,12 +154,5 @@ didSignInForUser:(GIDGoogleUser *)user
         // ...
     }
 }
-//
-//- (void)signIn:(GIDSignIn *)signIn
-//didDisconnectWithUser:(GIDGoogleUser *)user
-//     withError:(NSError *)error {
-//    // Perform any operations when the user disconnects from app here.
-//    // ...
-//}
 
 @end

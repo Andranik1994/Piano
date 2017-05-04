@@ -6,52 +6,55 @@
 //  Copyright © 2017 Andranik. All rights reserved.
 //
 
-#import "RegestrationViewController.h"
+#import "GoogleLogInViewController.h"
 
 
-@interface RegestrationViewController ()
+@interface GoogleLogInViewController ()
 
 @property(weak, nonatomic) IBOutlet GIDSignInButton *googleButton;
 
-//@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
-@implementation RegestrationViewController
+@implementation GoogleLogInViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.title = @"WELCOME";
     [GIDSignIn sharedInstance].uiDelegate = self;
     if ([FIRAuth auth].currentUser) {
+        NSLog(@"In - GoogleLogInViewController 'viewDidLoad IF'");
         UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"pianoViewController"];
         [self.navigationController pushViewController:VC animated:NO];
     }
-    
 }
 - (IBAction)pushGoogleSignIn:(id)sender {
-    NSLog(@"In - RegestrationViewController 'pushGoogleSignIn'");
+    NSLog(@"In - GoogleLogInViewController 'pushGoogleSignIn'");
 }
 
 #pragma mark - Google SignIn Delegate
 
 - (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
-    NSLog(@"In - RegestrationViewController 'signInWillDispatch'");
+    NSLog(@"In - GoogleLogInViewController 'signInWillDispatch'");
 }
 
 - (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController{
     
     [self presentViewController:viewController animated:YES completion:nil];
-    NSLog(@"In - RegestrationViewController 'signIn presentViewController'");
+    NSLog(@"In - GoogleLogInViewController 'signIn presentViewController'");
 }
 
 - (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
     
     UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"pianoViewController"];
     [self.navigationController pushViewController:VC animated:NO];
-    
+       
     [self dismissViewControllerAnimated:NO completion:nil];
-    NSLog(@"In - RegestrationViewController 'signIn dismissViewController'");
+    NSLog(@"In - GoogleLogInViewController 'signIn dismissViewController'");
 }
+
+
 
 @end

@@ -21,7 +21,7 @@
 @property (strong, nonatomic) UILabel *nameLabel;
 
 @property (strong, nonatomic) UITableView *mySongsTableView;
-@property (strong, nonatomic) UITableView *searchTableView;
+@property (strong, nonatomic) UITableView *friendsTableView;
 
 @property (strong ,nonatomic) NSMutableDictionary *songsDictionary;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
@@ -35,19 +35,31 @@
 
 @implementation ProfileViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
+
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.segmentControl.selectedSegmentIndex = 0;
-    [self controlProfile:self.segmentControl.selectedSegmentIndex];
+    [self controlProfile:0];
     
     
     self.ref = [[FIRDatabase database] reference];
     self.songsDictionary = [NSMutableDictionary new];
     self.number = [[NSNumber alloc] initWithInt:0];
+    
+    UIImage *settingsImage = [UIImage imageNamed:@"settingsImage.png"];
+    CGRect frameimg = CGRectMake(0, 0, 30 , 30);
+    UIButton *settingsButton = [[UIButton alloc] initWithFrame:frameimg];
+    [settingsButton setBackgroundImage:settingsImage forState:UIControlStateNormal];
+    [settingsButton addTarget:self action:@selector(goToSettings)
+             forControlEvents:UIControlEventTouchUpInside];
+    [settingsButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *rightBarButton =[[UIBarButtonItem alloc] initWithCustomView:settingsButton];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     NSString *userID = [FIRAuth auth].currentUser.uid;
@@ -65,17 +77,57 @@
     }];
     
     
+    [[[self.ref child:@"users"] child:userID ] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        // Get user value
+        UIFont * customFont = [UIFont fontWithName:@"HelveticaNeue" size:16];
+        
+        self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.height/15 + 60 + self.view.frame.size.height/15,
+                                                                  self.view.frame.size.width/15,
+                                                                  self.view.frame.size.height/2 - self.view.frame.size.height/15 + 60,
+                                                                  50)];
+        self.nameLabel.text = [snapshot.value objectForKey:@"nickName"];
+        self.nameLabel.font = customFont;
+        self.nameLabel.numberOfLines = 1;
+        self.nameLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
+        self.nameLabel.adjustsFontSizeToFitWidth = YES;
+        self.nameLabel.minimumScaleFactor = 10.0f/12.0f;
+        self.nameLabel.clipsToBounds = YES;
+        self.nameLabel.backgroundColor = [UIColor clearColor];
+        self.nameLabel.textColor = [UIColor blackColor];
+        self.nameLabel.textAlignment = NSTextAlignmentLeft;
+        [self.view addSubview:self.nameLabel];
+        
+        
+        NSURL *url = [NSURL URLWithString:
+                      @"https://firebasestorage.googleapis.com/v0/b/piano-17dd1.appspot.com/o/User%20Male(528).png?alt=media&token=f7f797cd-0478-4d8e-a042-d30845cbb578"];
+        
+        NSData *imageURL = [NSData dataWithContentsOfURL:url];
+        UIImage *profileImage = [UIImage imageWithData:imageURL];
+        
+        self.profileImageView = [[UIImageView alloc] initWithFrame: CGRectMake (self.view.frame.size.height/15,
+                                                                                self.view.frame.size.width/15,
+                                                                                60,
+                                                                                60)];
+        self.profileImageView.image = profileImage;
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2;
+        self.profileImageView.clipsToBounds = YES;
+        [self.view addSubview:self.profileImageView];
+        
+        
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
 }
 
 #pragma mark - SegmentController
-- (IBAction)chooseSegment:(UISegmentedControl *)sender {
+- (IBAction)chooseSegment:(UISegmentedControl *)sender{
     switch (sender.selectedSegmentIndex) {
         case 0:{
             [self controlProfile:sender.selectedSegmentIndex];
             break;
         }
         case 1:{
-            [self controlSearch:sender.selectedSegmentIndex];
+            [self controlFriends:sender.selectedSegmentIndex];
             break;
         }
         default:
@@ -84,70 +136,38 @@
 }
 
 - (void)controlProfile:(NSUInteger)segmentIndex{
+    [self.friendsTableView removeFromSuperview];
     
-    [self.searchTableView removeFromSuperview];
-    
-    
-    FIRUser *currentUser = [FIRAuth auth].currentUser;
-    
-    NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"%@",currentUser.photoURL]];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    UIImage *profileImage = [[UIImage alloc] initWithData:data];
-    
-    self.profileImageView = [[UIImageView alloc] initWithFrame: CGRectMake (self.view.frame.size.height/15,
-                                                                            self.view.frame.size.width/15,
-                                                                            60,
-                                                                            60)];
-    self.profileImageView.image = profileImage;
-    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2;
-    self.profileImageView.clipsToBounds = YES;
+    [self.view addSubview:self.nameLabel];
     [self.view addSubview:self.profileImageView];
     
+   
+        self.mySongsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,
+                                                                              self.view.frame.size.height/2,
+                                                                              self.view.frame.size.width,
+                                                                              self.view.frame.size.height/2)];
     
-    
-    
-    UIFont * customFont = [UIFont fontWithName:@"HelveticaNeue" size:16];
-    
-    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.height/15 + 60 + self.view.frame.size.height/15,  self.view.frame.size.width/15, self.view.frame.size.height/2 - self.view.frame.size.height/15 + 60, 50)];
-    self.nameLabel.text = currentUser.displayName;
-    self.nameLabel.font = customFont;
-    self.nameLabel.numberOfLines = 1;
-    self.nameLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
-    self.nameLabel.adjustsFontSizeToFitWidth = YES;
-    self.nameLabel.minimumScaleFactor = 10.0f/12.0f;
-    self.nameLabel.clipsToBounds = YES;
-    self.nameLabel.backgroundColor = [UIColor clearColor];
-    self.nameLabel.textColor = [UIColor blackColor];
-    self.nameLabel.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:self.nameLabel];
-    
-    
-    
-    self.mySongsTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2,
-                                                                          self.navigationController.navigationBar.frame.size.height,
-                                                                          self.view.frame.size.width/2,
-                                                                          self.view.frame.size.height)];
     [self.view addSubview:self.mySongsTableView];
     self.mySongsTableView.delegate = self;
     self.mySongsTableView.dataSource = self;
 }
 
-- (void)controlSearch:(NSUInteger)segmentIndex{
+- (void)controlFriends:(NSUInteger)segmentIndex{
     [self.profileImageView removeFromSuperview];
     [self.nameLabel removeFromSuperview];
     [self.mySongsTableView removeFromSuperview];
     
-    self.searchTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height,
+    self.friendsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,self.navigationController.navigationBar.frame.size.height,
                                                                          self.view.frame.size.width,self.view.frame.size.height)];
-    [self.view addSubview:self.searchTableView];
-    self.searchTableView.delegate = self;
-    self.searchTableView.dataSource = self;
+    [self.view addSubview:self.friendsTableView];
+    self.friendsTableView.delegate = self;
+    self.friendsTableView.dataSource = self;
     
 }
 
 #pragma mark - TableView
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if([tableView isEqual:self.mySongsTableView]){
         
@@ -157,7 +177,7 @@
         return 15;
     }
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     if([tableView isEqual:self.mySongsTableView]){
         
@@ -210,7 +230,7 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -299,5 +319,13 @@
     [self play];
 }
 
+#pragma mark - Methods
+
+- (void)goToSettings{
+    UIViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
+    
+    [self.navigationController pushViewController:VC animated:YES];
+
+}
 
 @end

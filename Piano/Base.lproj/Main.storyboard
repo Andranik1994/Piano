@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6Jz-qq-60Z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6Jz-qq-60Z">
     <device id="retina5_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="3UB-uW-4iI">
             <objects>
-                <navigationController id="6Jz-qq-60Z" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Jz-qq-60Z" sceneMemberID="viewController">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="736" height="414"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NGk-gK-x17">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -25,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-460" y="227"/>
         </scene>
-        <!--Regestration View Controller-->
+        <!--Google Log In View Controller-->
         <scene sceneID="dgb-3k-iYf">
             <objects>
-                <viewController storyboardIdentifier="regestrationViewController" id="EFX-au-b0f" customClass="RegestrationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="googleLogInViewController" id="EFX-au-b0f" customClass="GoogleLogInViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aiV-Ol-a84"/>
                         <viewControllerLayoutGuide type="bottom" id="hKJ-gG-LCz"/>
@@ -51,6 +53,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="Bfn-lC-ygc"/>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="736" height="414"/>
                     <connections>
                         <outlet property="googleButton" destination="HYH-Xo-2GW" id="O7Q-Us-ds2"/>
                     </connections>
@@ -88,13 +92,15 @@
                         </segmentedControl>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="736" height="414"/>
                     <connections>
                         <outlet property="octaveControl" destination="85i-AV-2QQ" id="Ihd-QZ-HdO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Em-wo-iYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1087.1064467766118" y="224.80000000000001"/>
+            <point key="canvasLocation" x="1269" y="226"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="D62-n7-82W">
@@ -116,7 +122,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Profile"/>
-                                <segment title="Search"/>
+                                <segment title="Friends"/>
                             </segments>
                             <connections>
                                 <action selector="chooseOctave:" destination="Rwj-Wi-SFI" eventType="valueChanged" id="iUl-yG-GXC"/>
@@ -125,41 +131,36 @@
                         </segmentedControl>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="736" height="414"/>
                     <connections>
                         <outlet property="segmentControl" destination="DOJ-8z-sbr" id="R9r-gh-9PI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecV-MY-Y5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1800.0000000000002" y="224.63768115942031"/>
+            <point key="canvasLocation" x="2081" y="226"/>
         </scene>
-        <!--Own Songs Table View Controller-->
-        <scene sceneID="1Lb-HG-O0f">
+        <!--Settings View Controller-->
+        <scene sceneID="Bip-Uc-1I2">
             <objects>
-                <tableViewController storyboardIdentifier="ownSongsTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zAC-mu-TpS" customClass="OwnSongsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ra1-kB-rFX">
+                <viewController storyboardIdentifier="settingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bms-PW-hPY" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8kw-Oy-wFP"/>
+                        <viewControllerLayoutGuide type="bottom" id="JQe-q0-afJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GsR-bo-s7l">
                         <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ownSongsCell" id="h9R-UW-DmL">
-                                <rect key="frame" x="0.0" y="28" width="736" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h9R-UW-DmL" id="Nrr-J5-iK2">
-                                    <rect key="frame" x="0.0" y="0.0" width="736" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="zAC-mu-TpS" id="WRW-U9-dKi"/>
-                            <outlet property="delegate" destination="zAC-mu-TpS" id="Upr-9a-cVa"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="02Q-mb-0Sl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="736" height="414"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DEZ-yp-lNx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2493" y="226"/>
+            <point key="canvasLocation" x="2899" y="226"/>
         </scene>
     </scenes>
 </document>
