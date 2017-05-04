@@ -10,6 +10,9 @@
 		6D1761CE1E89F16D000067DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D1761CD1E89F16D000067DE /* AVFoundation.framework */; };
 		6D1761D21E89F1EE000067DE /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = 6D1761D11E89F1EE000067DE /* Sound */; };
 		6D1761DA1E89FBDA000067DE /* WhiteNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1761D91E89FBDA000067DE /* WhiteNote.m */; };
+		6D389BBA1EBB1981000A36AE /* ProfileData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D389BB91EBB1981000A36AE /* ProfileData.m */; };
+		6D389BBD1EBB4FE7000A36AE /* NonRotatingUIImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D389BBC1EBB4FE7000A36AE /* NonRotatingUIImagePickerController.m */; };
+		6D389BBF1EBB6605000A36AE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D389BBE1EBB6605000A36AE /* Default-568h@2x.png */; };
 		6D424ED91EB90B950063BAF8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D424ED81EB90B950063BAF8 /* SettingsViewController.m */; };
 		6D6126211E91069E0050DD77 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6126201E91069E0050DD77 /* UIColor+Additions.m */; };
 		6D96D8E71E8EA3B3007A89E5 /* BlackNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D96D8E61E8EA3B3007A89E5 /* BlackNote.m */; };
@@ -34,6 +37,11 @@
 		6D1761D11E89F1EE000067DE /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sound; sourceTree = "<group>"; };
 		6D1761D81E89FBDA000067DE /* WhiteNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhiteNote.h; sourceTree = "<group>"; };
 		6D1761D91E89FBDA000067DE /* WhiteNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhiteNote.m; sourceTree = "<group>"; };
+		6D389BB81EBB1981000A36AE /* ProfileData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileData.h; sourceTree = "<group>"; };
+		6D389BB91EBB1981000A36AE /* ProfileData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileData.m; sourceTree = "<group>"; };
+		6D389BBB1EBB4FE7000A36AE /* NonRotatingUIImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonRotatingUIImagePickerController.h; sourceTree = "<group>"; };
+		6D389BBC1EBB4FE7000A36AE /* NonRotatingUIImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonRotatingUIImagePickerController.m; sourceTree = "<group>"; };
+		6D389BBE1EBB6605000A36AE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6D424ED71EB90B950063BAF8 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		6D424ED81EB90B950063BAF8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6D61261F1E91069E0050DD77 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
@@ -96,6 +104,7 @@
 		6DD289671E897A5400DDE065 = {
 			isa = PBXGroup;
 			children = (
+				6D389BBE1EBB6605000A36AE /* Default-568h@2x.png */,
 				6DD289721E897A5400DDE065 /* Piano */,
 				6DD289711E897A5400DDE065 /* Products */,
 				6D1761CC1E89F16D000067DE /* Frameworks */,
@@ -138,6 +147,10 @@
 				6D1761D91E89FBDA000067DE /* WhiteNote.m */,
 				6D61261F1E91069E0050DD77 /* UIColor+Additions.h */,
 				6D6126201E91069E0050DD77 /* UIColor+Additions.m */,
+				6D389BBB1EBB4FE7000A36AE /* NonRotatingUIImagePickerController.h */,
+				6D389BBC1EBB4FE7000A36AE /* NonRotatingUIImagePickerController.m */,
+				6D389BB81EBB1981000A36AE /* ProfileData.h */,
+				6D389BB91EBB1981000A36AE /* ProfileData.m */,
 			);
 			path = Piano;
 			sourceTree = "<group>";
@@ -217,6 +230,7 @@
 				6D1761D21E89F1EE000067DE /* Sound in Resources */,
 				6DD2897E1E897A5400DDE065 /* Main.storyboard in Resources */,
 				6DA7B9541E9133F80012B155 /* Assets.xcassets in Resources */,
+				6D389BBF1EBB6605000A36AE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +297,8 @@
 				6DD289781E897A5400DDE065 /* AppDelegate.m in Sources */,
 				6D96D8E71E8EA3B3007A89E5 /* BlackNote.m in Sources */,
 				6D424ED91EB90B950063BAF8 /* SettingsViewController.m in Sources */,
+				6D389BBA1EBB1981000A36AE /* ProfileData.m in Sources */,
+				6D389BBD1EBB4FE7000A36AE /* NonRotatingUIImagePickerController.m in Sources */,
 				6DD289751E897A5400DDE065 /* main.m in Sources */,
 				6D1761DA1E89FBDA000067DE /* WhiteNote.m in Sources */,
 			);

@@ -122,33 +122,61 @@ didSignInForUser:(GIDGoogleUser *)user
                                                                          accessToken:authentication.accessToken];
         
         
-        [[FIRAuth auth] signInWithCredential:credential
-                                  completion:^(FIRUser *user, NSError *error) {
-                                      NSLog(@"In - AppDelegate 'signIn didSignInForUser'");
-                                      
-                                      
-                                      FIRDatabaseReference *usersReference = [[[FIRDatabase database] referenceFromURL:@"https://piano-17dd1.firebaseio.com/users"]
-                                                                              child:user.uid];
-                                      
-
-                                      NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                              user.displayName,@"nickName",
-                                                              @"https://firebasestorage.googleapis.com/v0/b/piano-17dd1.appspot.com/o/User%20Male(528).png?alt=media&token=f7f797cd-0478-4d8e-a042-d30845cbb578",@"profileImageURL",
-                                                              nil];
-                                      
-                                      [usersReference updateChildValues:values withCompletionBlock:^(NSError *__nullable err, FIRDatabaseReference * ref){
-                                       if(err) {
-                                           NSLog(@"In - AppDelegate Error in updateChildValues:values withCompletionBlock ");
-                                           return;
-                                       }
-                                       NSLog(@"Saved user seccessfully in FireBace db");
-                                       }];
-                                      
-                                      if (error) {
-                                          // ...
-                                          return;
-                                      }
-                                  }];
+        [[FIRAuth auth] signInWithCredential:credential completion:^(FIRUser *user, NSError *error) {
+            NSLog(@"In - AppDelegate 'signIn didSignInForUser'");
+            
+            
+            
+            FIRDatabaseReference *usersReference = [[[FIRDatabase database] referenceFromURL:@"https://piano-17dd1.firebaseio.com/users"]
+                                                    child:user.uid];
+            
+            [usersReference observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+                
+                if(![snapshot hasChild:@"nickName"]){
+                    NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            user.displayName,@"nickName",
+                                            nil];
+                    [usersReference updateChildValues:values withCompletionBlock:^(NSError *__nullable err, FIRDatabaseReference * ref){
+                        if(err) {
+                            NSLog(@"In - AppDelegate Error in updateChildValues:values withCompletionBlock ");
+                            return;
+                        }
+                        NSLog(@"Saved user seccessfully in FireBace db");
+                    }];
+                }
+                if(![snapshot hasChild:@"email"]){
+                    NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            user.email,@"email",
+                                            nil];
+                    [usersReference updateChildValues:values withCompletionBlock:^(NSError *__nullable err, FIRDatabaseReference * ref){
+                        if(err) {
+                            NSLog(@"In - AppDelegate Error in updateChildValues:values withCompletionBlock ");
+                            return;
+                        }
+                        NSLog(@"Saved user seccessfully in FireBace db");
+                    }];
+                }
+                if(![snapshot hasChild:@"profileImageURL"]){
+                    NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            @"https://firebasestorage.googleapis.com/v0/b/piano-17dd1.appspot.com/o/User%20Male(528).png?alt=media&token=f7f797cd-0478-4d8e-a042-d30845cbb578",@"profileImageURL",
+                                            nil];
+                    [usersReference updateChildValues:values withCompletionBlock:^(NSError *__nullable err, FIRDatabaseReference * ref){
+                        if(err) {
+                            NSLog(@"In - AppDelegate Error in updateChildValues:values withCompletionBlock ");
+                            return;
+                        }
+                        NSLog(@"Saved user seccessfully in FireBace db");
+                    }];
+                }
+                
+                
+                
+            }];
+            if (error) {
+                // ...
+                return;
+            }
+        }];
         
     } else {
         // ...
